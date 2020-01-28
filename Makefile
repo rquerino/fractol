@@ -8,7 +8,7 @@ INC_DIR = ./includes/
 LIBFT_DIR = ./libft/
 MINLBX_DIR = ./minilibx_macos/
 
-SRC_FILES = fdf.c map.c pixels.c aux.c
+SRC_FILES = fractol.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
