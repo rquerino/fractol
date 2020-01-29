@@ -6,12 +6,13 @@
 /*   By: rquerino <rquerino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 12:20:02 by rquerino          #+#    #+#             */
-/*   Updated: 2020/01/27 18:17:45 by rquerino         ###   ########.fr       */
+/*   Updated: 2020/01/28 20:14:02 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 #include "../libft/libft.h"
+#include <stdio.h>
 
 /*
 ** gcc -Wall -Wextra -Werror -L ./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit src/fractol.c
@@ -19,17 +20,12 @@
 ** Allowed: open, read, write, close, malloc, free, perror, strerror, exit
 */
 
-int    ft_draw_julia(t_fract *fract)
+int ft_draw_julia(t_fract *fract)
 {
-    mlx_clear_window(fract->mlx, fract->win);
+    // mlx_clear_window(fract->mlx, fract->win);
     //each iteration, it calculates: new = old*old + c, where c is a constant and old starts at current pixel
-    double    cRe, cIm;           //real and imaginary part of the constant c, determinate shape of the Julia Set
     double    newRe, newIm, oldRe, oldIm;   //real and imaginary parts of new and old
     unsigned long   color;
-
-    //pick some values for the constant c, this determines the shape of the Julia Set
-    cRe = -0.7;
-    cIm = 0.27015;
 
     //loop through every pixel
     for(int y = 0; y < HEIGHT; y++) {
@@ -47,8 +43,8 @@ int    ft_draw_julia(t_fract *fract)
                 oldRe = newRe;
                 oldIm = newIm;
                 //the actual iteration, the real and imaginary part are calculated
-                newRe = oldRe * oldRe - oldIm * oldIm + cRe;
-                newIm = 2 * oldRe * oldIm + cIm;
+                newRe = oldRe * oldRe - oldIm * oldIm + fract->cRe;
+                newIm = 2 * oldRe * oldIm + fract->cIm;
                 //if the point is outside the circle with radius 2: stop
                 if((newRe * newRe + newIm * newIm) > 4) break;
             }
@@ -62,39 +58,43 @@ int    ft_draw_julia(t_fract *fract)
             // color = ((((fract->color->R >> 16) & 0xFF) << 16) | (((fract->color->G >> 8) & 0xFF) << 8) | (fract->color->B & 0xff));
 
             //draw the pixel
-            mlx_pixel_put(fract->mlx, fract->win, x, y, color);
+            fract->img[y * WIDTH + x] = color;
+            // fract->img[y *  + x] = (i << 21) + (i << 10) + i * 8
+            // mlx_pixel_put(fract->mlx, fract->win, x, y, color);
         }
+        mlx_put_image_to_window(fract->mlx, fract->win, fract->img_ptr, 0, 0);
     }
     return (1);
 }
 
-int		ft_funcs(int key, t_fract *fract)
+int ft_funcs(int key, t_fract *fract)
 {
 	if (key == R) {
         fract->zoom = 1;
-        fract->moveX = 0;
-        fract->moveY = 0;
-        fract->iterations = 300;
+        fract->moveX = -0.7;
+        fract->moveY = 0.8;
+        fract->iterations = 150;
     }
-    else if (key == UP)
-		fract->zoom += 0.1;
-	else if ((key == DOWN) && (fract->zoom > 0.1))
-		fract->zoom -= 0.1;
 	else if (key == W)
-		fract->moveY += 0.1;
+		fract->moveY -= 0.005;
     else if (key == S)
-		fract->moveY -= 0.1;
+		fract->moveY += 0.005;
     else if (key == D)
-		fract->moveX += 0.1;
+		fract->moveX += 0.005;
     else if (key == A)
-		fract->moveX -= 0.1;
+		fract->moveX -= 0.005;
     else if (key == PLUS)
-        fract->iterations += 25;
-    else if (key == MINUS && fract->iterations > 25)
-        fract->iterations -= 25;
+        fract->iterations += 15;
+    else if (key == MINUS && fract->iterations > 15)
+        fract->iterations -= 15;
 	else if (key == ESC)
 		exit(0);
-    return (ft_draw_julia(fract));    
+    // if (key == UP)
+    //     fract->zoom += 0.1;
+    // else if (key == DOWN && fract->zoom > (1 + 0.1))
+    //     fract->zoom -= 0.1;
+    
+    return (0);    
     // if (fract->set == "Julia")
     //     return (ft_draw_fract(fract));
     // else if (fract->set == "Mandelbrot")
@@ -102,6 +102,46 @@ int		ft_funcs(int key, t_fract *fract)
     // else
     //     return (ft_draw_other(fract));
     // return(1);
+}
+
+int ft_scroll(int key, int x, int y, t_fract *fract)
+{
+    (void) x;
+    (void) y;
+    // Try to fix the zoom following the mouse
+    // if (x >= (WIDTH / 2))
+    //     fract->moveX += (x / WIDTH);
+    // else
+    //     fract->moveX -= ((WIDTH - x) / WIDTH);
+    // if (y >= (HEIGHT / 2))
+    //     fract->moveY += (y / HEIGHT);
+    // else
+    //     fract->moveY -= ((HEIGHT - y) / HEIGHT);
+
+    if (key == SCROLL_UP)
+        fract->zoom = fract->zoom * 1.5;
+	else if (key == SCROLL_DOWN)
+        fract->zoom = fract->zoom / 1.5;
+
+	return (0);
+}
+
+
+int				ft_movement(int x, int y, t_fract *fract)
+{
+	if (ft_strcmp(fract->set, "Julia") == 0)
+	{
+		fract->cIm += (double)(x * 0.00001);
+		fract->cRe -= (double)(y * 0.00001);
+	}
+	return (0);
+}
+
+void    freeAll(t_fract *fract) {
+	mlx_clear_window(fract->mlx, fract->win);
+	mlx_destroy_window(fract->mlx, fract->win);
+	exit(0);
+    free(fract);
 }
 
 /*
@@ -116,26 +156,44 @@ Quadratic Julia Sets
  */
 
 int main(int ac, char **av) {
-    if (ac == 2) {
+    if (ac == 1) {
+        int		bpp;
+        int		size;
+        int		endian;
+
+
     // if (ac == 2 && (av[1] == "Julia" || av[1] == "Mandelbrot")) {
         t_fract   *fract;
         fract = malloc(sizeof(t_fract));
         fract->color = malloc(sizeof(t_color));
         // function to initialize variables
         fract->set = av[1];
-        fract->zoom = 1;
+        // Mouse scroll up/down
+        fract->zoom = 1.0;
+        // keyboard keys WASD
         fract->moveX = -0.7;
         fract->moveY = 0.8;
-        fract->iterations = 100;
+        // +/- keyboard
+        fract->iterations = 150;
+        // Change by mouse moving
+        fract->cRe = -0.7;
+        fract->cIm = 0.27015;
 
         fract->mlx = mlx_init();
         fract->win = mlx_new_window(fract->mlx, WIDTH, HEIGHT, "Fract'ol");
-        ft_draw_julia(fract);
+        // init, mlx_new_window, mlx_new_image and mlx_get_data_addr can be in another function with the int variables
+        fract->img_ptr = mlx_new_image(fract->mlx, WIDTH, HEIGHT);
+        fract->img = (uint32_t*)mlx_get_data_addr(fract->img_ptr, &bpp, &size, &endian);
+
+        // Key press
         mlx_hook(fract->win, 2, 0, ft_funcs, fract);
-        // mlx_loop_hook(fract->mlx, ft_draw, fract);
-        // ft_draw(fract);
+        // Mouse press
+        mlx_hook(fract->win, 4, 0, ft_scroll, fract);
+        // Mouse move
+        // mlx_hook(fract->win, 6, 0, ft_movement, fract);
+        mlx_loop_hook(fract->mlx, ft_draw_julia, fract);
         mlx_loop(fract->mlx);
-        free(fract);
+        freeAll(fract);
     } else {
         // ft_putstr("Usage: ./ft_fractal set\n");
         // ft_putstr("Sets available: Julia, Mandelbrot, x.\n");
