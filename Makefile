@@ -8,7 +8,11 @@ INC_DIR = ./includes/
 LIBFT_DIR = ./libft/
 MINLBX_DIR = ./minilibx_macos/
 
-SRC_FILES = fractol.c
+SRC_FILES = fractol.c \
+			aux.c \
+			julia.c \
+			mandelbrot.c
+			
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))

@@ -6,7 +6,7 @@
 /*   By: rquerino <rquerino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 22:30:31 by rquerino          #+#    #+#             */
-/*   Updated: 2020/01/28 14:37:23 by rquerino         ###   ########.fr       */
+/*   Updated: 2020/01/29 16:53:11 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define S				1
 # define D				2
 # define R				15
+# define X				7
 # define PLUS			24
 # define MINUS			27
 # define UP				126
@@ -45,32 +46,53 @@ typedef struct		s_color
 
 typedef struct		s_fract
 {
-    void    	*mlx;
+	void    	*mlx;
 	void    	*win;
 	void		*img_ptr;
 	uint32_t	*img;
 	int			fractSet;
 	t_color		*color;
+	int			thread;
 
 	double		zoom;
 	double		moveX;
 	double		moveY;
 	int			iterations;
 	char		*set;
+	int			locked;
 
-	//constants for shape: cRe(constant real) and cIm(constant imaginary)
-    double		cRe;
-    double		cIm;
-	// int		width;
-	// int		height;
-	// int		coord_x;
-	// int		coord_y;
-	// int		x0;
-	// int		x1;
-	// int		y0;
-	// int		y1;
-	// int		scale;
-	// int		camera;
+	/* constants for shape: cRe(constant real) and cIm(constant imaginary) */
+	double		cRe;
+	double		cIm;
+
+	/* Doubles needed for calculation (new/old real and imaginary) */
+	double		newRe;
+	double		newIm; 
+	double		oldRe;
+	double		oldIm;
+
+	/* Mandelbrot pr and pi (initial real and imaginary part of z) */
+	double		pr;
+	double		pi;
 }					t_fract;
+
+
+t_fract			*ft_init_struct(char *set);
+void			ft_init_env(t_fract *fract);
+void			ft_freeAll(t_fract *fract);
+int 			ft_funcs(int key, t_fract *fract);
+int 			ft_scroll(int key, int x, int y, t_fract *fract);
+int				ft_movement(int x, int y, t_fract *fract);
+void			ft_reset_julia(t_fract *f);
+int				ft_julia_calc(t_fract *f);
+int				ft_draw_julia(t_fract *f);
+
+void			ft_reset_mandelbrot(t_fract *f);
+int				ft_mandelbrot_calc(t_fract *f);
+int				ft_draw_mandelbrot(t_fract *f);
+
+void			ft_random_color(t_fract *f);
+int				ft_get_light(int start, int end, double percentage);
+int				ft_get_color(t_fract *f, int i);
 
 #endif
