@@ -11,7 +11,9 @@ MINLBX_DIR = ./minilibx_macos/
 SRC_FILES = fractol.c \
 			aux.c \
 			julia.c \
-			mandelbrot.c
+			mandelbrot.c \
+			tricorn.c \
+			burning_ship.c
 			
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

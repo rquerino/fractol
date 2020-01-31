@@ -6,7 +6,7 @@
 /*   By: rquerino <rquerino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 10:45:32 by rquerino          #+#    #+#             */
-/*   Updated: 2020/01/29 15:41:07 by rquerino         ###   ########.fr       */
+/*   Updated: 2020/01/30 16:25:08 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ int ft_funcs(int key, t_fract *fract) {
 	if (key == R) {
 		if (!strcmp(fract->set, "Julia"))
 			ft_reset_julia(fract);
-		// else if (!strcmp(fract->set, "Mandelbrot"))
-		//     ft_reset_mandelbrot(fract);
+		else if (!strcmp(fract->set, "Mandelbrot"))
+		    ft_reset_mandelbrot(fract);
+		else if (!strcmp(fract->set, "Tricorn"))
+		    ft_reset_tricorn(fract);
+		else if (!strcmp(fract->set, "Burning Ship"))
+		    ft_reset_burning(fract);
 	}
 	else if (key == W)
 		fract->moveY -= (double)(0.05 / fract->zoom);

@@ -6,7 +6,7 @@
 /*   By: rquerino <rquerino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 22:30:31 by rquerino          #+#    #+#             */
-/*   Updated: 2020/01/29 16:53:11 by rquerino         ###   ########.fr       */
+/*   Updated: 2020/01/30 16:52:17 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ typedef struct		s_fract
 	/* Mandelbrot pr and pi (initial real and imaginary part of z) */
 	double		pr;
 	double		pi;
+
+	/* Tricorn and Burning ship */
+	double		x;
+	double		y;
 }					t_fract;
 
 
@@ -90,6 +94,14 @@ int				ft_draw_julia(t_fract *f);
 void			ft_reset_mandelbrot(t_fract *f);
 int				ft_mandelbrot_calc(t_fract *f);
 int				ft_draw_mandelbrot(t_fract *f);
+
+void			ft_reset_tricorn(t_fract *f);
+int				ft_tricorn_calc(t_fract *f);
+int				ft_draw_tricorn(t_fract *f);
+
+void			ft_reset_burning(t_fract *f);
+int				ft_burning_calc(t_fract *f);
+int				ft_draw_burning(t_fract *f);
 
 void			ft_random_color(t_fract *f);
 int				ft_get_light(int start, int end, double percentage);
