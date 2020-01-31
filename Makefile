@@ -1,4 +1,4 @@
-NAME = ft_fractal
+NAME = fractol
 
 CFLAGS = -Wall -Wextra -Werror
 
