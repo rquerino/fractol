@@ -6,11 +6,12 @@
 /*   By: rquerino <rquerino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 10:45:32 by rquerino          #+#    #+#             */
-/*   Updated: 2020/01/30 20:32:48 by rquerino         ###   ########.fr       */
+/*   Updated: 2020/01/31 12:52:10 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
+#include <stdio.h>
 
 void	ft_reset(t_fract *f)
 {
@@ -32,13 +33,13 @@ int		ft_funcs(int key, t_fract *fract)
 {
 	if (key == R)
 		ft_reset(fract);
-	else if (key == W)
+	else if (key == UP)
 		fract->move_y -= (double)(0.05 / fract->zoom);
-	else if (key == S)
+	else if (key == DOWN)
 		fract->move_y += (double)(0.05 / fract->zoom);
-	else if (key == D)
+	else if (key == RIGHT)
 		fract->move_x += (double)(0.05 / fract->zoom);
-	else if (key == A)
+	else if (key == LEFT)
 		fract->move_x -= (double)(0.05 / fract->zoom);
 	else if (key == PLUS)
 		fract->iterations += 15;

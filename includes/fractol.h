@@ -6,7 +6,7 @@
 /*   By: rquerino <rquerino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 22:30:31 by rquerino          #+#    #+#             */
-/*   Updated: 2020/01/30 20:36:25 by rquerino         ###   ########.fr       */
+/*   Updated: 2020/01/31 12:51:45 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,15 @@
 # define HEIGHT 		480
 # define SCROLL_UP		4
 # define SCROLL_DOWN	5
-# define W				13
-# define W				13
-# define A				0
-# define S				1
-# define D				2
 # define R				15
 # define X				7
 # define C				8
 # define PLUS			24
 # define MINUS			27
-# define UP				126
+# define LEFT			123
+# define RIGHT			124
 # define DOWN			125
+# define UP				126
 # define ESC			53
 
 typedef struct			s_fract
