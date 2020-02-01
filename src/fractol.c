@@ -6,17 +6,12 @@
 /*   By: rquerino <rquerino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 12:20:02 by rquerino          #+#    #+#             */
-/*   Updated: 2020/01/30 20:18:08 by rquerino         ###   ########.fr       */
+/*   Updated: 2020/01/31 19:37:01 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 #include <stdio.h>
-
-/*
-** Learn: complex numbers, optimization
-** Allowed: open, read, write, close, malloc, free, perror, strerror, exit
-*/
 
 /*
 ** Initialize struct
@@ -101,11 +96,15 @@ int		main(int ac, char **av)
 		if (fract)
 			ft_init_env(fract);
 		else
-			ft_putstr("Please enter a valid fractal set. Available: Julia, \
-				Mandelbrot, Tricorn, Burning Ship\n");
+        {
+            ft_putstr("Please enter a valid fractal set. Available: Julia, ");
+			ft_putstr("Mandelbrot, Tricorn, Burning Ship\n");
+        }
 	}
 	else
-		ft_putstr("Usage: ./ft_fractal <Julia, Mandelbrot, \
-			Tricorn, Burning Ship>\n");
-	return (0);
+    {
+		ft_putstr("Usage: ./ft_fractal <Julia, Mandelbrot, ");
+        ft_putstr("Tricorn, Burning Ship>\n");
+    }
+    return (0);
 }
