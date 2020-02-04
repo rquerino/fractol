@@ -6,12 +6,23 @@
 /*   By: rquerino <rquerino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 12:20:02 by rquerino          #+#    #+#             */
-/*   Updated: 2020/01/31 19:37:01 by rquerino         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:58:57 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 #include <stdio.h>
+
+void	ft_instructions(void)
+{
+	ft_putstr("ARROWS:		Move\n");
+	ft_putstr("MOUSE:		Scroll to zoom in/out\n");
+	ft_putstr("+ / -:		Increase/Decrease Iterations\n");
+	ft_putstr("C:		Able/Disable monochromatic\n");
+	ft_putstr("X:		Lock/Unlock constant by mouse movement [JULIA]\n");
+	ft_putstr("R:		Reset to initial configuration\n");
+	ft_putstr("ESC:		Exit\n");
+}
 
 /*
 ** Initialize struct
@@ -94,17 +105,16 @@ int		main(int ac, char **av)
 	{
 		fract = ft_init_struct(av[1]);
 		if (fract)
+		{
+			ft_instructions();
 			ft_init_env(fract);
+		}
 		else
-        {
-            ft_putstr("Please enter a valid fractal set. Available: Julia, ");
-			ft_putstr("Mandelbrot, Tricorn, Burning Ship\n");
-        }
+			ft_putstr("Please enter a valid fractal set. Available: Julia, "
+				"Mandelbrot, Tricorn, Burning Ship\n");
 	}
 	else
-    {
-		ft_putstr("Usage: ./ft_fractal <Julia, Mandelbrot, ");
-        ft_putstr("Tricorn, Burning Ship>\n");
-    }
-    return (0);
+		ft_putstr("Usage: ./ft_fractal <Julia, Mandelbrot, "
+			"Tricorn, Burning Ship>\n");
+	return (0);
 }

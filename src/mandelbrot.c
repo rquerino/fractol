@@ -6,7 +6,7 @@
 /*   By: rquerino <rquerino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 14:16:35 by rquerino          #+#    #+#             */
-/*   Updated: 2020/01/30 21:09:12 by rquerino         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:59:31 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		ft_draw_mandelbrot(t_fract *f)
 			color = ft_getcolor(f, i);
 			f->img[y * WIDTH + x] = color;
 		}
-		mlx_put_image_to_window(f->mlx, f->win, f->img_ptr, 0, 0);
 	}
+	mlx_put_image_to_window(f->mlx, f->win, f->img_ptr, 0, 0);
 	return (1);
 }

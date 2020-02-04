@@ -6,7 +6,7 @@
 /*   By: rquerino <rquerino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 10:51:48 by rquerino          #+#    #+#             */
-/*   Updated: 2020/01/30 20:34:13 by rquerino         ###   ########.fr       */
+/*   Updated: 2020/02/04 15:00:28 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@
 
 int		ft_getcolor(t_fract *f, int i)
 {
-	int	r;
-	int	g;
-	int	b;
+	int	color;
 
 	if (f->monochromatic == 1)
 	{
@@ -32,10 +30,8 @@ int		ft_getcolor(t_fract *f, int i)
 	}
 	else
 	{
-		r = i % f->iterations * (i < f->iterations);
-		g = i % f->iterations * (i < f->iterations);
-		b = i % f->iterations * (i < f->iterations);
-		return ((r << 21) | (g << 10) | b);
+		color = i % f->iterations * (i < f->iterations);
+		return ((color << 21) | (color << 10) | color);
 	}
 }
 
@@ -102,7 +98,7 @@ int		ft_draw_julia(t_fract *f)
 			color = ft_getcolor(f, i);
 			f->img[y * WIDTH + x] = color;
 		}
-		mlx_put_image_to_window(f->mlx, f->win, f->img_ptr, 0, 0);
 	}
+	mlx_put_image_to_window(f->mlx, f->win, f->img_ptr, 0, 0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: rquerino <rquerino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 14:58:16 by rquerino          #+#    #+#             */
-/*   Updated: 2020/01/30 20:35:16 by rquerino         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:59:45 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		ft_draw_tricorn(t_fract *f)
 			color = ft_getcolor(f, i);
 			f->img[y * WIDTH + x] = color;
 		}
-		mlx_put_image_to_window(f->mlx, f->win, f->img_ptr, 0, 0);
 	}
+	mlx_put_image_to_window(f->mlx, f->win, f->img_ptr, 0, 0);
 	return (1);
 }
